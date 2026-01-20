@@ -1,0 +1,61 @@
+//logic merge sort when combine run loop on left and right and arrange accordingly
+
+class Solution {
+    public int reversePairs(int[] arr) {
+        return countInv(arr, 0, arr.length - 1);
+    }
+
+    public static int countInv(int arr[], int si, int ei) {
+        int res = 0;
+        if (si < ei) {
+            int mid = si + (ei - si) / 2;
+            res += countInv(arr, si, mid);
+            res += countInv(arr, mid + 1, ei);
+            res += countAndMerge(arr, si, ei, mid);
+        }
+        return res;
+    }
+
+    static int countAndMerge(int arr[], int si, int ei, int mid) {
+        int n1 = mid - si + 1;
+        int n2 = ei - mid;
+
+        int[] left = new int[n1];
+        int[] right = new int[n2];
+
+        for (int i = 0; i < n1; i++)
+            left[i] = arr[si + i];
+        for (int j = 0; j < n2; j++)
+            right[j] = arr[mid + 1 + j];
+
+        int res = 0;
+
+        //main 
+        int p = 0, q = 0;
+        while (p < n1) {
+        while (q < n2 && (long) left[p] > 2L * right[q]) {
+            q++;
+        }
+        res += q;
+        p++;
+        }
+
+        int i = 0, j = 0, k = si;
+        while (i < n1 && j < n2) {
+            if (left[i] <= right[j]) {
+            arr[k++] = left[i++];
+            } 
+            else {
+            arr[k++] = right[j++];
+            }
+        }
+
+        while (i < n1)
+            arr[k++] = left[i++];
+
+        while (j < n2)
+            arr[k++] = right[j++];
+
+        return res;
+    }
+}
