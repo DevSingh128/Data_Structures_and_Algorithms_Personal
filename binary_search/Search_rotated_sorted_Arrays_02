@@ -1,0 +1,43 @@
+//check the target == arr[mid]
+//if arr[start] == arr[mid] && arr[end] == arr[mid] start++,end--,continue;
+//if not then search in right sorted path(arr[st] <= arr[mid]) then => target <= arr[mid] && target >= arr[start]
+//if not then search in left sorted path () => target <= arr[high] && target >= arr[mid] 
+
+
+class Solution {
+    public boolean search(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length-1;
+        while(start<=end){
+            int mid = start + (end - start)/2;
+            if(nums[mid]==target){
+                return true;
+            }
+
+            if(nums[start] == nums[mid] && nums[end] == nums[mid]){
+                start++;
+                end--;
+                continue;
+            }
+
+            if(nums[start] <= nums[mid]){
+                if(nums[start]<= target && nums[mid] >= target){
+                    end = mid - 1;
+                }
+                else{
+                    start = mid + 1;
+                }
+            }
+
+            else{
+                if(nums[mid] <= target && nums[end] >= target){
+                    start = mid + 1;
+                }
+                else{
+                    end = mid - 1;
+                }
+            }
+        }
+        return false;
+    }
+}
