@@ -1,0 +1,37 @@
+easy just read the question and run from 1 to max for which hours it dvide all under the h limit
+
+class Solution {
+    public int getmax(int[]piles, int mid){
+        int totalans = 0;
+        for(int i=0;i<piles.length;i++){
+            totalans += (int)Math.ceil((double)piles[i]/mid);
+        } 
+        return totalans;
+    }
+
+    public int minEatingSpeed(int[] piles, int h) {
+        int ans = 0;
+        int low = 1;
+        int max = piles[0];
+
+        for (int i = 1; i < piles.length; i++) {
+            if (piles[i] > max) {
+                max = piles[i]; 
+            }
+        }
+
+        while(low <= max){
+            int mid =  low + (max - low)/2;
+            int totalhours = getmax(piles,mid);
+            if(totalhours <= h){
+                max = mid - 1;
+            }
+            else{
+                low = mid + 1;
+            }
+
+        }
+
+        return low;
+    }
+}
