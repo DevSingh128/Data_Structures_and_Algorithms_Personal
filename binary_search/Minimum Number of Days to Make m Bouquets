@@ -1,0 +1,56 @@
+1.if m*k > total return -1;
+2.search from min array value to maximum;
+3.calculate count every ith day if less than day then increase count if not equal
+  immediately calculate count/k and set count = 0 and also add it after last iteration
+4. here calulate m or more than banquet so >= between ispossible and m
+   if it is greater then move to left else right
+5.return ans as answer
+
+class Solution {
+    public int minDays(int[] bloomDay, int m, int k) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        int n = bloomDay.length;
+        int ans = -1;
+        for(int i=0;i<n;i++){
+            if(bloomDay[i] < min){
+                min = bloomDay[i];
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(bloomDay[i] > max){
+                max = bloomDay[i];
+            }
+        }
+        if(m*k > n){
+            return -1;
+        }
+        while(min <= max){
+            int mid = min + (max - min)/2;
+            if(ispossible(bloomDay,m,k,mid) >= m){
+                ans = mid;
+                max = mid - 1;
+            }
+            else{
+                min = mid + 1;
+            }
+        }
+        return ans;
+    }
+    public int ispossible(int[] bloomDay,int m ,int k,int day){
+        int count = 0;
+        int total = 0;
+        int n = bloomDay.length;
+        for(int i=0;i<n;i++){
+            if(bloomDay[i] <= day){
+                count++;
+            }
+            else{
+                total += count/k;
+                count = 0;
+            }
+        }
+        total += count/k;
+        return total;
+    }
+}
