@@ -1,0 +1,40 @@
+1.no of days should be between maximum capacity and the sum of all capacity
+2.no of days <= given total days so decrease capacity in it else
+not found we increase capacity (similar but different condition of boquets question)
+3.check through countdays sum up all weights if excced limit set sum = 0 and increase the days
+return days
+
+class Solution {
+    public int countDays(int[] weights, int capacity) {
+        int sum = 0;
+        int days = 1;
+        for(int w:weights){
+            if(sum + w > capacity){
+                sum = 0;
+                days++;
+            }
+            sum += w;
+        }
+        return days;
+    }
+
+    public int shipWithinDays(int[] weights, int days) {
+        int low = 0;
+        int high = 0;
+        for(int w : weights){
+           low = Math.max(low,w);
+           high += w;
+        }
+        while(low <= high) {
+            int mid = (high + low)/2;
+            int count = countDays(weights,mid);
+            if(count <= days){
+            high = mid - 1;
+            }
+            else{
+            low = mid + 1;
+            }
+        }
+        return low;
+    }
+}
