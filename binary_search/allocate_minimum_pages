@@ -1,0 +1,61 @@
+* SIMILAR PROBLEM TO AGGRESSIVE COWS *
+1.binary search on max element to sum of all elements if ispossible true ans = mid and move left (end = mid - 1)
+else start = mid + 1
+2. in ispossible function countbooks = 1; and sum up if the limit (arr[i] + pos) is less than mid 
+and if it exceed the limit set curr to arr[i] and countbooks++ , if countbook == k then return true else false
+
+class Solution {
+    public int findPages(int[] arr, int k) {
+        // code here
+        int n = arr.length;
+        int i = 0;
+        int max = arr[0];
+        for (int x : arr) {
+            if (x > max) {
+                max = x;
+            }
+        }
+        i=max;
+        int j = 0;
+        for(int p=0;p<n;p++){
+            j += arr[p];
+        }
+        int ans = -1;
+
+        
+        if( k > n){
+            return ans;
+        }
+        
+        while(i <= j){
+            int mid = i + (j-i)/2;
+            if(ispossible(arr,mid,k)){
+                ans = mid;
+                j = mid - 1;
+            }
+            else{
+                i = mid + 1;
+            }
+        }
+        return ans;
+    }
+    
+    
+    public boolean ispossible(int[] arr,int mid,int k){
+        int pos = 0;
+        int studentcount = 1;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i] + pos <= mid){
+                pos += arr[i];
+            }
+            else{
+                studentcount++;
+                pos = arr[i];
+            }
+            if(studentcount > k){
+                return false;
+            }
+        }
+        return true;
+    }
+}
