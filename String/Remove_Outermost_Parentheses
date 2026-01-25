@@ -1,0 +1,21 @@
+1.KEEP COUNT BY LEVEL IF '(' DETECH AND COUNT > 0 ADD AND INCREASE COUNT
+2.')' DETECT AND DECREASE COUNT AND IF COUNT > 0 ADD 
+class Solution {
+    public String removeOuterParentheses(String s) {
+        StringBuilder result = new StringBuilder();  
+        int level = 0;  
+
+        for (char ch : s.toCharArray()) {
+            if (ch == '(') {
+                if (level > 0) result.append(ch);
+                level++; 
+            } 
+            else if (ch == ')') {
+                level--;  
+                if (level > 0) result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+}
