@@ -1,0 +1,20 @@
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) return false;
+        int[] arr1 = new int[256];
+        int[] arr2 = new int[256];
+        for (int i = 0; i < 256; i++) {
+            arr1[i] = -1;
+            arr2[i] = -1;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            int sChar = s.charAt(i);
+            int tChar = t.charAt(i);
+            if (arr1[sChar] != -1 && arr1[sChar] != tChar) return false;
+            if (arr2[tChar] != -1 && arr2[tChar] != sChar) return false;
+            arr1[sChar] = tChar;
+            arr2[tChar] = sChar;
+        }
+        return true;
+    }
+}
