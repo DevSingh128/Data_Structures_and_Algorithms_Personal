@@ -1,0 +1,31 @@
+1.sliding window
+2.if hashmap size > k then deacrease the frequenct and add in count and find answer
+main : (ei - si + 1) counts the number of substrings that end at ei and start anywhere from si to ei, all of which satisfy the “at most k distinct characters” condition.
+
+class Solution {
+    public int countSubstr(String s, int k) {
+        //  code here
+        return atMostK(s, k) - atMostK(s, k - 1);
+    }
+    
+    private int atMostK(String s, int k) {
+        if (k < 0) return 0;
+
+        int si = 0, count = 0;
+        HashMap<Character, Integer> freq = new HashMap<>();
+
+        for (int ei = 0; ei < s.length(); ei++) {
+            freq.put(s.charAt(ei), freq.getOrDefault(s.charAt(ei), 0) + 1);
+
+            while (freq.size() > k) {
+                char leftChar = s.charAt(si);
+                freq.put(leftChar, freq.get(leftChar) - 1);
+                if (freq.get(leftChar) == 0) freq.remove(leftChar);
+                si++;
+            }
+
+            count += (ei - si + 1);
+        }
+        return count;
+    }
+}
