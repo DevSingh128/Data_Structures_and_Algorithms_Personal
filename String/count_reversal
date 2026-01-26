@@ -1,0 +1,25 @@
+class Solution {
+    public int countMinReversals(String s) {
+        // code here
+        int len = s.length();
+        
+        if (len % 2 == 1) return -1;
+        
+        int leftBrace = 0, rightBrace = 0;
+        
+        for (char c : s.toCharArray()) {
+            if (c == '{') {
+                leftBrace++;
+            } else {
+                if (leftBrace == 0) {
+                    rightBrace++;
+                } else {
+                    leftBrace--;
+                }
+            }
+        }
+        
+        // Return ceil(left/2) + ceil(right/2)
+        return (leftBrace + 1) / 2 + (rightBrace + 1) / 2;
+    }
+}
