@@ -1,0 +1,43 @@
+if the digit is even then combination of 5^n * 4^n is same 
+if digit is odd then combination of then 5^(n+1)/2 * 4^(n-1)/2 is this
+to calculate power in long we use previous pow function
+//note repeatdly using MOD because the number should not overflow
+
+
+class Solution {
+    public int countGoodNumbers(long n) {
+        long res = 1;
+        int max = Integer.MAX_VALUE;
+        long MOD = 1000000007L;
+        if(n == 1){
+            return 5;
+        }
+        if(n % 2 == 0){
+            res = res * myPow(5,n/2,MOD) * myPow(4,n/2,MOD) % MOD;
+        }
+        
+        else{
+            res = res * myPow(5,(n+1)/2,MOD) * myPow(4,(n-1)/2,MOD)% MOD;
+        }
+        return (int)res; 
+    }
+
+    public long myPow(long x, long n, long MOD) {
+        if(n == 1){
+            return x % MOD;
+        }
+        if(n == 0){
+            return 1;
+        }
+        return posmyPow(x, n,MOD);
+    }
+
+    public long posmyPow(long x, long n,long MOD) {
+        if (n == 0) return 1;
+        
+        if (n % 2 == 0) {
+            return posmyPow(x * x % MOD, n / 2,MOD);
+        }
+        return x * posmyPow(x * x % MOD, (n - 1) / 2,MOD) % MOD;
+    }
+}
