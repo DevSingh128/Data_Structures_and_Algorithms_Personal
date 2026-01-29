@@ -1,0 +1,28 @@
+can done in brute force but to optimise calculation we use log n 
+if it is even then indise function x * x and reduce n by n/2
+and if it is odd then multiply by x and inside it same x * x and reduc n by n-1/2
+
+
+
+class Solution {
+    public double myPow(double x, int n) {
+        if(n == 1){
+            return x;
+        }
+        if(n == 0){
+            return 1.0;
+        }
+        if (n < 0) {
+        return 1.0 / posmyPow(x, -(long)n); 
+        }
+        return posmyPow(x, n);
+    }
+    public double posmyPow(double x, long n) {
+        if (n == 0) return 1.0;
+        
+        if (n % 2 == 0) {
+            return posmyPow(x * x, n / 2);
+        }
+        return x * posmyPow(x * x, (n - 1) / 2);
+    }
+}
