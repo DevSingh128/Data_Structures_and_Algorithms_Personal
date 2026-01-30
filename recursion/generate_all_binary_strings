@@ -1,0 +1,18 @@
+class Solution {
+    public ArrayList<String> binstr(int n) {
+        // code here
+        ArrayList<String> res = new ArrayList<>();
+        generateString(n,"",res);
+        return res;
+        
+    }
+    public void generateString(int n, String curr, ArrayList<String> res){
+        int i = curr.length();
+        if(n==i){
+           res.add(curr);
+           return;
+        }
+        generateString(n, curr + "0", res);
+        generateString(n, curr + "1", res);
+    }
+}
