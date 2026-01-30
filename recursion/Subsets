@@ -1,0 +1,15 @@
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        sol(nums,0,new ArrayList<>(),result);
+        return result;
+    }
+    static void sol(int[] nums,int i,List<Integer>arr,List<List<Integer>>ans){
+        ans.add(new ArrayList<>(arr));
+        for(int j=i;j<nums.length;j++){
+            arr.add(nums[j]);
+            sol(nums,j+1,arr,ans);
+            arr.remove(arr.size()-1);
+        }
+    }
+}
