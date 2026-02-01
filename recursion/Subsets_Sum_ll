@@ -1,0 +1,21 @@
+//similar condition used here we used in combinational sum loop initializing variable greater than i 
+and curr and nextelement are equal then continue
+
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        sol(nums,0,new ArrayList<>(),result);
+        return result;
+    }
+    static void sol(int[] nums,int i,List<Integer>arr,List<List<Integer>>ans){
+        ans.add(new ArrayList<>(arr));
+        for(int j=i;j<nums.length;j++){
+            if(j>i&&nums[j]==nums[j-1])
+            continue;
+            arr.add(nums[j]);
+            sol(nums,j+1,arr,ans);
+            arr.remove(arr.size()-1);
+        }
+    }
+}
