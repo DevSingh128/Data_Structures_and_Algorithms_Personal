@@ -1,0 +1,23 @@
+//amount or amount - arr[i] pr khelenge or duplicate hai toh start again from the variable initialize in the loop
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<Integer> ll = new ArrayList<>();
+        List<List<Integer>> as = new ArrayList<>();
+        combination(candidates,target,ll,0,as);
+
+        return as;
+    }
+    public static void combination(int[] candidates, int amount,List<Integer> ll,int idx,List<List<Integer>> as){
+        if(amount == 0){
+            as.add(new ArrayList<>(ll));
+            return;
+        }
+        for(int i = idx ; i<candidates.length;i++){
+            if(amount >= candidates[i]){
+            ll.add(candidates[i]);
+            combination(candidates,amount-candidates[i],ll,i,as);
+            ll.remove(ll.size()-1);
+            }
+        }
+    }
+}
