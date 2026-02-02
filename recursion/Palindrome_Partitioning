@@ -1,0 +1,27 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        ArrayList<String> as = new ArrayList<>();
+        sol(s,as,ans);
+        return ans;
+    }
+    public void sol(String s,ArrayList<String>as,List<List<String>>ans){
+        if(s.length() == 0){
+            ans.add(new ArrayList<>(as));
+        }
+        for(int i=1;i<=s.length();i++){
+            String temp = s.substring(0,i);
+            if(check(temp)){
+            as.add(temp);
+            sol(s.substring(i),as,ans);
+            as.remove(as.size()-1);
+            }
+        }
+    }
+
+    public boolean check(String s){
+        StringBuilder sb = new StringBuilder(s);
+        String x = sb.reverse().toString();
+        return x.equals(s);
+    }
+}
