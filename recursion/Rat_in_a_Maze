@@ -1,0 +1,47 @@
+similar concept to word search but it is not boolean by which we have to find all possible outcomes
+base case row $$ col on last index
+use stringbuilder to add the element and dlete last element before it check is it valid or not
+then call recursively
+
+
+class Solution {
+    public ArrayList<String> ratInMaze(int[][] maze) {
+        // code here
+        ArrayList<String> ans = new ArrayList<>();
+        int n = maze.length;
+        StringBuilder path = new StringBuilder();
+
+        if (maze[0][0] == 1 && maze[n - 1][n - 1] == 1) {
+            findPath(maze,0,0,ans,path);  
+        }
+        Collections.sort(ans);
+        return ans;
+        
+    }
+    public void findPath(int[][] maze,int i,int j,ArrayList<String>ans,StringBuilder path){
+        int n = maze.length;
+        if(i == n - 1 && j == n - 1){
+            ans.add(path.toString());
+            return;
+        }
+        
+        int temp = maze[i][j];
+        maze[i][j] = 0;
+        String str = "UDLR";
+        int row[] = {-1,1,0,0};
+        int col[] = {0,0,-1,1};
+        for(int k=0;k<4;k++){
+            if(isValid(i+row[k],j+col[k],n,maze)){
+                path.append(str.charAt(k));
+                findPath(maze,i+row[k],j+col[k],ans,path);
+                path.deleteCharAt(path.length() - 1);
+            }
+        }
+        maze[i][j] = 1;
+        
+    }
+    
+    static boolean isValid(int r, int c, int n, int[][] maze) {
+        return r >= 0 && c >= 0 && r < n && c < n && maze[r][c] == 1;
+    }
+}
