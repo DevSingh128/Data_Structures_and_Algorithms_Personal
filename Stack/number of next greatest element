@@ -1,0 +1,23 @@
+//brute force
+class Solution {
+    public static int[] count_NGE(int arr[], int indices[]) {
+        // code here
+        int n = indices.length;
+        int k = arr.length;
+        int nums[] = new int[n];
+        int p = 0;
+        
+        for(int i=0;i<indices.length;i++){
+            int curr = arr[indices[i]];
+            int count = 0;
+            for(int j=indices[i];j<k;j++){
+                if(arr[j] > curr){
+                    count++;
+                }
+            }
+            nums[p] = count;
+            p++;
+        }
+        return nums;
+    }
+}
