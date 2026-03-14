@@ -1,0 +1,47 @@
+same logic nsl (0 to n-1) if arr[stack peek] > arr[i] => -1 
+nsr (n-1 to 0) if arr[stack peek] >= arr[i] => push arr.length
+it is problem with duplicate by which we using >= and >
+we want min so i - nsl[i] and nsr[i] - i
+then multiply left right and current and sum it
+
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        int n = arr.length;
+        int[] nsl = new int[n];
+        int[] nsr = new int[n];
+
+        Stack<Integer> stack = new Stack<>();
+
+        // NSL
+        for(int i=0;i<n;i++){
+            while(!stack.isEmpty() && arr[stack.peek()] > arr[i]){
+                stack.pop();
+            }
+            nsl[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(i);
+        }
+
+        stack.clear();
+
+        // NSR
+        for(int i=n-1;i>=0;i--){
+            while(!stack.isEmpty() && arr[stack.peek()] >= arr[i]){
+                stack.pop();
+            }
+            nsr[i] = stack.isEmpty() ? n : stack.peek();
+            stack.push(i);
+        }
+
+        long sum = 0;
+        int mod = 1000000007;
+
+        for(int i=0;i<n;i++){
+            long left = i - nsl[i];
+            long right = nsr[i] - i;
+
+            sum = (sum + (left * right % mod) * arr[i] % mod) % mod;
+        }
+
+        return (int)sum;
+    }
+}
