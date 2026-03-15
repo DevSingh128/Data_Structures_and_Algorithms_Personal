@@ -1,0 +1,28 @@
+if i==n or char is I then put the count and increment
+run loop inside it for D i-1 to 0 and char in this range not be I 
+put the increment count and again increment
+
+class Solution {
+    public String smallestNumber(String pattern) {
+        int n = pattern.length();
+        int ans[] = new int[n+1];
+        int count = 1;
+        for(int i=0;i<=n;i++){
+            if(i==n || pattern.charAt(i) == 'I'){
+                ans[i] = count;
+                count++;
+                for(int j=i-1;j>=0 && pattern.charAt(j)!='I';j--){
+                    ans[j] = count;
+                    count++;
+                }
+            }
+        }
+
+        String s = "";
+        for(int k : ans){
+            s += Integer.toString(k);
+        }
+
+        return s;
+    }
+}
