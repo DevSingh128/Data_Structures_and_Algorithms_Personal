@@ -1,0 +1,34 @@
+//found maximum non overlapping intervals using activity selection
+
+
+class Solution {
+    // Function to find the maximum number of meetings that can
+    // be performed in a meeting room.
+    public int maxMeetings(int start[], int end[]) {
+        // add your code here
+        int count = 0;
+        int meeting[][] = new int[end.length][3];
+        for(int i=0;i<end.length;i++){
+            meeting[i][0] = i;
+            meeting[i][1] = start[i];
+            meeting[i][2] = end[i];
+        }
+        
+        Arrays.sort(meeting,Comparator.comparingDouble(o -> o[2]));
+        
+        int ans[] = new int[end.length];
+        count = 1;
+        ans[0] = meeting[0][0];
+        int last = meeting[0][2];
+        
+        for(int i=1;i<end.length;i++){
+            if(meeting[i][1] > last){
+                count++;
+                ans[i] = meeting[i][0];
+                last = meeting[i][2];
+            }
+        }
+        
+        return count;
+    }
+}
