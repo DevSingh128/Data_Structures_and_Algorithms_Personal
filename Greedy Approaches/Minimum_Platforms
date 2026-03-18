@@ -1,0 +1,35 @@
+We do NOT care about individual train sequences. //uses greedy + two pointer
+We only care about how many trains are present at the station at the same time.
+
+So the goal becomes:
+
+Find the maximum number of overlapping time interval
+platforms needed = number of active trains
+Arrival → +1 active train
+Departure → -1 active train
+
+We track the maximum value reached.
+
+class Solution {
+    public int minPlatform(int arr[], int dep[]) {
+        //  code here
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        int max = 0;
+        while(i < arr.length && j < dep.length){
+            if(arr[i] <= dep[j]){
+                count++;
+                max = Math.max(count,max);
+                i++;
+            } 
+            else{
+                count--;
+                j++;
+            }
+        }
+        return max;
+    }
+}
