@@ -1,0 +1,18 @@
+find the number of overlapping interval needed to remove
+so number of overlapping interval = length of array - number of non overlapping interval 
+
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        int act = 1;
+        Arrays.sort(intervals, Comparator.comparingDouble(o -> o[1]));
+        int lastidx = intervals[0][1];
+        for(int i=1 ; i<intervals.length ; i++){
+            if(intervals[i][0] >= lastidx){
+                act++;
+                lastidx = intervals[i][1];
+            }
+        }
+        int res = intervals.length - act;
+        return res;
+    }
+}
