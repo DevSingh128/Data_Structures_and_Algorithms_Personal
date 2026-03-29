@@ -1,0 +1,47 @@
+int n = deadline.length;
+
+        // Step 1: Create jobs array [id, deadline, profit]
+        int[][] jobs = new int[n][3];
+        for (int i = 0; i < n; i++) {
+            jobs[i][0] = i + 1;
+            jobs[i][1] = deadline[i];
+            jobs[i][2] = profit[i];
+        }
+
+        // Step 2: Sort by profit descending
+        Arrays.sort(jobs, (a, b) -> b[2] - a[2]);
+
+        // Step 3: Find max deadline
+        int maxDeadline = 0;
+        for (int d : deadline) {
+            maxDeadline = Math.max(maxDeadline, d);
+        }
+
+        // Step 4: Create slot array
+        int[] slot = new int[maxDeadline + 1]; // 1-based indexing
+        Arrays.fill(slot, -1);
+
+        int count = 0;
+        int totalProfit = 0;
+
+        // Step 5: Greedy placement
+        for (int i = 0; i < n; i++) {
+            int d = jobs[i][1];
+            int p = jobs[i][2];
+
+            // try to place job from d → 1
+            for (int j = d; j > 0; j--) {
+                if (slot[j] == -1) {
+                    slot[j] = jobs[i][0]; // store jobId (optional)
+                    count++;
+                    totalProfit += p;
+                    break;
+                }
+            }
+        }
+
+        // Step 6: Return result
+        ArrayList<Integer> ans = new ArrayList<>();
+        ans.add(count);
+        ans.add(totalProfit);
+        return ans;
