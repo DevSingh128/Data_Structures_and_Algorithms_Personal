@@ -1,0 +1,41 @@
+class Solution {
+    public boolean check(int[] nums) {
+        int n = nums.length;
+        for(int i = 0;i<n;i++){
+            int arr[] = new int[n];
+            arr = rotate(nums,i);
+            if(issorted(arr) == true){
+                return true;
+            }
+        }
+        return false;
+    }
+    public int[] rotate(int[] nums,int k){
+        int n = nums.length;
+        int[] tempArr = nums.clone();
+        while(k>0){
+            int first = tempArr[0];
+            for(int i = 0; i < n-1; i++){
+                tempArr[i] = tempArr[i+1];
+            }
+            tempArr[n-1] = first;
+            k--;
+        }
+
+        return tempArr;
+    }
+
+    public boolean issorted(int[] arr){
+        int i = 0;
+        int j = 1;
+        int n = arr.length;
+        while(j<=n-1){
+            if(arr[i] > arr[j]){
+                return false;
+            }
+            i++;
+            j++;
+        }
+        return true;
+    }
+}
