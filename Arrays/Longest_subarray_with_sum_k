@@ -1,0 +1,19 @@
+// User function Template for Java
+
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        // code here
+        HashMap<Integer,Integer>hm = new HashMap<>();
+        hm.put(0,-1);
+        int currsum = 0;
+        int max = 0;
+        for(int i=0;i<arr.length;i++){
+            currsum += arr[i];
+            if(hm.containsKey(currsum - k)){
+                max = Math.max(max,i - hm.get(currsum - k));
+            }
+            hm.put(currsum,hm.getOrDefault(currsum,i));
+        }
+        return max;
+    }
+}
