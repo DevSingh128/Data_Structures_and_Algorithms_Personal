@@ -1,0 +1,56 @@
+class Solution {
+    public void mergeSort(int arr[], int l, int r) {
+        // code here
+        if(l>=r){                                    // Base condition when to stop dividing
+            return;
+        }
+        int mid = l + (r-l)/2;
+        mergeSort(arr,l,mid);
+        mergeSort(arr,mid+1,r);
+        int nums[] = merge(arr,l,mid,r);
+        for(int i=0;i<nums.length;i++){                    //we have to sort from l to r so copy element to arr from i+l where i = 0;
+            arr[i+l] = nums[i];
+        }
+    }
+    
+    public int[] merge(int arr[],int l,int mid,int r){         //After divide , merge every element
+        int n1 = mid - l + 1;
+        int n2 = r - mid;
+        
+        int[] a1 = new int[n1];
+        int[] a2 = new int[n2];
+        
+        for(int k=0;k<n1;k++){
+            a1[k] = arr[l+k];
+        }
+        
+        for(int k=0;k<n2;k++){
+            a2[k] = arr[mid+k+1];
+        }
+        
+        int[] c = new int[n1+n2];
+        int i = 0;
+        int j = 0;
+        int t = 0;
+                                                                  // merge on the basis of who is greater element
+        while(i<n1 && j<n2){
+            if(a1[i] <= a2[j]){
+                c[t++] = a1[i++];
+            }
+            else{
+                c[t++] = a2[j++];
+            }
+        }
+        
+        while(i<n1){
+            c[t++] = a1[i++];
+        }
+        
+        while(j<n2){
+            c[t++] = a2[j++];
+        }
+        
+        return c;
+        
+    }
+}                                                                 // time complexity O(nlogn) (divide + merge)   // space complexity O(n) traversing each element
