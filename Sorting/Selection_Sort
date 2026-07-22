@@ -1,0 +1,28 @@
+The basic idea of Selection Sort is to repeatedly find the smallest element from the unsorted portion of an array and swap it to the front
+
+Time Complexity: O(n²) because it uses two nested loops, meaning it is slow for large datasets.(All cases)
+Space Complexity: O(1) auxiliary space because it sorts the array in-place without needing extra memory.
+Swaps: It minimizes memory writes, making a maximum of n-1 swaps.
+
+
+class Solution {
+    void selectionSort(int[] arr) {
+        // code here
+        for(int i=0;i<arr.length-1;i++){
+            int min = i;
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[j] < arr[min]){
+                    //assign min index
+                    min = j;
+                }
+            }
+            
+            //swap
+            int temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
+        }        
+    }
+}
+
+
