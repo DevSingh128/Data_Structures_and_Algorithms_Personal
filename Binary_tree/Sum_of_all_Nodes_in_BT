@@ -1,0 +1,9 @@
+class Solution {
+    static int sumBT(Node root) {
+        // code here
+        if(root == null){return 0;}
+        int right = sumBT(root.right);
+        int left = sumBT(root.left);
+        return left+right+root.data;
+    }
+}
