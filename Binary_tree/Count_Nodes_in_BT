@@ -1,0 +1,41 @@
+//recursive approach O(n)
+class Solution {
+    public int countNodes(TreeNode root) {
+        if(root == null){return 0;}
+        int right = countNodes(root.right);
+        int left = countNodes(root.left);
+        return right+left+1;
+    }
+}
+
+
+
+
+//alternate approach O(log square 2 n)
+class Solution {
+    public int countNodes(TreeNode root) {
+        if(root == null) return 0;
+        int leftHeight = leftNodes(root);
+        int rightHeight = rightNodes(root);
+        if(leftHeight == rightHeight){
+            return (1 << leftHeight) - 1; // 2^height - 1
+        }
+        return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+    public int rightNodes(TreeNode node){
+        int height = 0;
+        while(node != null) {
+            height++;
+            node = node.right;
+        }
+        return height;
+    }
+    public int leftNodes(TreeNode node){
+        int height = 0;
+        while(node != null) {
+            height++;
+            node = node.left;
+        }
+        return height;
+    }
+}
