@@ -1,0 +1,41 @@
+/*Structure of binary tree Node
+class Node {
+    int data;
+    Node left;
+    Node right;
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+};*/
+
+class Solution {
+    public static class Info{
+        int diam;
+        int ht;
+        
+        public Info(int diam,int ht){
+            this.diam = diam;
+            this.ht = ht;
+        }
+    }
+    
+    public static Info Diameter(Node root){
+        if(root == null){return new Info(0,0);}
+        Info leftdiam = Diameter(root.left);
+        Info rightdiam = Diameter(root.right);
+        
+        int diam = Math.max(Math.max(leftdiam.diam,rightdiam.diam),leftdiam.ht+rightdiam.ht);
+        int ht = Math.max(leftdiam.ht,rightdiam.ht)+1;
+        
+        return new Info(diam,ht);
+    }
+    
+    public int diameter(Node root) {
+        // code here
+        if(root==null){
+            return 0;
+        }
+        return Diameter(root).diam;
+    }
+}
