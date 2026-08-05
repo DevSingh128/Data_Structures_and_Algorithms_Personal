@@ -1,0 +1,37 @@
+class Solution {
+    int ans = -1;
+    public int kthAncestor(Node root, int k, int node){
+        // code here
+        ans = -1;
+        solve(root, k, node);
+        return ans;
+    
+    }
+    
+    
+    private int solve(Node root, int k, int node) {
+        if (root == null) {
+            return -1;
+        }
+
+        if (root.data == node) {
+            return 0; // Distance to target node itself is 0
+        }
+
+        int leftdist = solve(root.left, k, node);
+        int rightdist = solve(root.right, k, node);
+
+        if (leftdist == -1 && rightdist == -1) {
+            return -1;
+        }
+
+        int max = Math.max(leftdist, rightdist);
+
+        // If current node is the k-th ancestor, save its value in 'ans'
+        if (max + 1 == k) {
+            ans = root.data;
+        }
+
+        return max + 1; // Always return distance up the stack
+    }
+}
